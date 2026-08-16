@@ -17,7 +17,14 @@ export default async function HomePage() {
     <>
       <AppHeader userName={user.name} />
 
-      <main className="mx-auto flex w-full max-w-3xl flex-col gap-10 px-6 py-10">
+      <main className="mx-auto flex w-full max-w-3xl flex-col gap-8 px-6 py-10">
+        <div className="space-y-1">
+          <h1 className="text-2xl font-semibold tracking-tight">Time tracker</h1>
+          <p className="text-muted-foreground text-sm">
+            Start the clock, and it&apos;s logged the moment you stop.
+          </p>
+        </div>
+
         <TimerPanel />
         <EntriesTable entries={entries} />
       </main>

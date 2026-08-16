@@ -34,7 +34,17 @@ against the host and only implements its own feature: a simple time tracker.
 - Own database ONLY (timer_db). NEVER reference the host database.
 - Every domain table carries userId (from local session) — scope all queries by it.
 - Links back to the platform (dashboard, logout) are plain <a> to `${HOST_URL}/...`.
-- Default shadcn theme, minimal UI, no design work.
+- Shares the platform design system with the host. `src/app/globals.css`,
+  `src/lib/theme.ts`, `src/components/ui/spinner.tsx`, `submit-button.tsx` and
+  `skeletons.tsx` are copies of the host's and must stay byte-identical — change
+  them in host first, then copy across, or the zones drift visually.
+- Dark mode comes from the host's `stevetech-theme` cookie (`path=/`, so it is
+  already set when the user arrives). Read it server-side in `layout.tsx`.
+- `AppHeader` deliberately mirrors the host's header. The zones are separate
+  deployments and the user must never be able to tell.
+- Nothing may look dead while it works: `SubmitButton`/`useFormStatus` for
+  action forms, `Spinner` in client buttons, `loading.tsx` for the route. Each
+  row's control needs its own `<form>` or one click greys out every row.
 - Do not add features beyond the spec. The point of this app is the auth flow.
 
 ## Env vars
